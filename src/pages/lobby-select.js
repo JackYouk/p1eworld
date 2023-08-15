@@ -54,7 +54,8 @@ export default function LobbySelect() {
             id: 11,
             activePlayers: 12,
         },
-    ]
+    ];
+    
     return (
         <>
         <div className="h-screen w-full bg-[#071330] flex flex-col justify-around items-center">
