@@ -13,11 +13,13 @@ import World from './World.jsx'
 import Interface from '../game-components/Interface'
 import Player from '../game-components/Player.jsx'
 import Lights from '../game-components/Lights.jsx'
+import Home from '@/pages/index.js'
 
 
 export default function P1EWorld() {
+
     return (
-        <>
+        <div className='bg-[#071330] h-screen'>
             <Canvas
                 shadows
                 camera={{
@@ -27,18 +29,17 @@ export default function P1EWorld() {
                     position: [2.5, 10, 6]
                 }}
             >
-                <Suspense fallback='null'>
+                <Suspense fallback={<></>}>
                     <color args={['#252731']} attach="background" />
                     <Physics gravity={[0, -20, 0]}>
-                        {/* <Debug /> */}
                         <Lights />
                         <World />
                         <Player />
                     </Physics>
                 </Suspense>
             </Canvas>
-            <Loader />
+            {/* <Loader /> */}
             <Interface />
-        </>
+        </div>
     )
 }

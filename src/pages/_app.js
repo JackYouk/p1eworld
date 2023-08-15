@@ -1,13 +1,16 @@
 import '@/styles/globals.css'
 import { PlayerProvider } from '@/context/playerContext'
 import { ControlsProvider } from '@/context/controlsContext'
+import { GameProvider } from '@/context/gameContext'
 
 export default function App({ Component, pageProps }) {
   return (
-    <PlayerProvider>
-      <ControlsProvider>
-        <Component {...pageProps} />
-      </ControlsProvider >
-    </PlayerProvider >
-  )
+    <GameProvider>
+      <PlayerProvider>
+        <ControlsProvider>
+          <Component {...pageProps} />
+        </ControlsProvider >
+      </PlayerProvider >
+    </GameProvider>
+  );
 }

@@ -6,13 +6,27 @@ import { ControlsContext } from '../context/controlsContext.jsx'
 import { PlayerContext } from '../context/playerContext.jsx'
 import { useRouter } from 'next/router.js';
 
+const games = [
+    {
+        slug: '/platforms',
+        name: 'P1E Platforms',
+        imgSrc: './banner2.png',
+        author: 'JackJack'
+    },
+    {
+        slug: '/f1',
+        name: 'P1E F1',
+        imgSrc: 'https://th.bing.com/th/id/OIP.yI1IWmdukXUamskCX5AaxgHaEo?pid=ImgDet&rs=1',
+        author: 'JackJack'
+    },
+];
 
 export default function Interface() {
     const navigate = useRouter();
     const { currentUser, login } = PlayerContext();
     const { cameraZoom, setCameraZoom, controls, setControls } = ControlsContext();
     const [gamesmenuOpen, setGamesmenuOpen] = useState(false);
-    const [selectedGame, setSelectedGame] = useState({ game: 'My P1E World', slug: '/' });
+    const [selectedGame, setSelectedGame] = useState({ game: 'P1E World', slug: '/wrld' });
 
     return (
         <>
@@ -50,54 +64,42 @@ export default function Interface() {
                                         navigate.push(selectedGame.slug);
                                     }}>Go</div>
                                 </div>
-                                
+
                                 <div
                                     className="game-item"
                                     style={{
-                                        filter: `${selectedGame.game === 'My P1E World' ? 'none' : ''}`,
+                                        filter: `${selectedGame.game === 'P1E World' ? 'none' : ''}`,
                                         background: `url("./conceptBanner.png")`
                                     }}
-                                    onClick={() => setSelectedGame({ game: 'My P1E World', slug: '/' })}
+                                    onClick={() => setSelectedGame({ game: 'P1E World', slug: '/wrld' })}
                                 >
                                     <div style={{}}>
-                                        My P1E World
+                                        P1E World
                                     </div>
                                     <div style={{ fontSize: '15px' }}>
 
                                     </div>
                                 </div>
-                                
-                                <div
-                                    className="game-item"
-                                    style={{
-                                        filter: `${selectedGame.game === 'P1E Stacker' ? 'none' : ''}`,
-                                        background: `url("./banner2.png")`
-                                    }}
-                                    onClick={(e) => { setSelectedGame({ game: 'P1E Stacker', slug: '/p1e-stacker' }) }}
-                                >
-                                    <div style={{}}>
-                                        P1E Stacker
-                                    </div>
-                                    <div style={{ fontSize: '15px' }}>
-                                        Built By JackJack
-                                    </div>
-                                </div>     
 
-                                <div
-                                    className="game-item"
-                                    style={{
-                                        filter: `${selectedGame.game === 'P1E F1' ? 'none' : ''}`,
-                                        background: `url("https://th.bing.com/th/id/OIP.yI1IWmdukXUamskCX5AaxgHaEo?pid=ImgDet&rs=1")`
-                                    }}
-                                    onClick={(e) => { setSelectedGame({ game: 'P1E F1', slug: '/p1e-f1' }) }}
-                                >
-                                    <div style={{}}>
-                                        P1E F1
-                                    </div>
-                                    <div style={{ fontSize: '15px' }}>
-                                        Built By JackJack
-                                    </div>
-                                </div>     
+                                {games.map(game => {
+                                    return (
+                                        <div
+                                            className="game-item"
+                                            style={{
+                                                filter: `${selectedGame.game === game.name ? 'none' : ''}`,
+                                                background: `url("${game.imgSrc}")`
+                                            }}
+                                            onClick={(e) => { setSelectedGame({ game: game.name, slug: game.slug }) }}
+                                        >
+                                            <div style={{}}>
+                                                {game.name}
+                                            </div>
+                                            <div style={{ fontSize: '15px' }}>
+                                                {`Built By ${game.author}`}
+                                            </div>
+                                        </div>
+                                    );
+                                })}                         
                             </div>
                         </div>
                     </>
@@ -149,7 +151,7 @@ export default function Interface() {
                     <div className='raw' >
                         <div className='games-btn' onClick={() => { setGamesmenuOpen(true) }}>Games</div>
                         <div className='market-btn' onClick={() => { navigate.push('/market') }}>Market</div>
-                        {!currentUser ? <div className='market-btn' onClick={() => login()}>Login</div> : <></>}
+                        {/* {!currentUser ? <div className='market-btn' onClick={() => login()}>Login</div> : <></>} */}
                     </div>
                 </div>
 
